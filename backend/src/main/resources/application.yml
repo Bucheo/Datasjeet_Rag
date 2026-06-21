@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: datasheet-rag-chatbot
+
+  # 개발 단계: H2 파일 DB (별도 설치 없이 바로 실행 가능)
+  # 운영/배포 단계에서 MySQL 등으로 교체 시 url/driver-class-name만 변경
+  datasource:
+    url: jdbc:h2:file:./data/app;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  port: 8080
+
+# --- 애플리케이션 커스텀 설정 ---
+app:
+  cors:
+    allowed-origin: http://localhost:3000
+
+  upload:
+    dir: ./data/uploads
+
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    base-url: https://api.openai.com/v1
+    chat-model: gpt-4o-mini
+    embedding-model: text-embedding-3-small
+
+  chroma:
+    base-url: http://localhost:8000
+    tenant: default_tenant
+    database: default_database
+    collection-name: datasheets
+
+  rag:
+    top-k: 4
+    chunk-size: 1000
+    chunk-overlap: 150
+
+logging:
+  level:
+    com.team.datasheetrag: DEBUG

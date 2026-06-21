@@ -1,0 +1,22 @@
+# Java / Maven
+target/
+*.class
+*.jar
+
+# H2 DB 파일
+backend/data/
+
+# Node
+node_modules/
+frontend/build/
+
+# IDE
+.idea/
+*.iml
+out/
+
+# 환경변수
+.env
+
+# OS
+.DS_Store
